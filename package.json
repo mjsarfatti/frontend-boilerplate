@@ -1,6 +1,6 @@
 {
-  "name": "Project Title",
-  "version": "1.0.0",
+  "name": "project-slug",
+  "version": "0.0.1",
   "description": "The description of the project",
   "author": "You",
   "devDependencies": {
