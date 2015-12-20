@@ -6,13 +6,17 @@ your development environemnt.
 
 ### Quick start
 
-*NOTE:* You must have [node](https://nodejs.org/) and [gulp](https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md)) installed
+**NOTE:** You must have [node](https://nodejs.org/) and [gulp](https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md) installed
 
 ```sh
-$ git clone https://github.com/mjsarfatti/frontend-boilerplate
+$ git clone https://github.com/mjsarfatti/frontend-boilerplate my-project
+$ cd my-project
 $ npm install
 $ gulp
 ```
+
+_PS: You probably want to personalize the first 4 properties of `package.json`
+even though it's not required_
 
 ### What it does
 
@@ -23,7 +27,7 @@ $ gulp
 - watch your HTML and PHP and reload the browser on change
 - provide a server at localhost:3000 and 192.168.my.ip:3000
 - make sure all browsers find the polyfills for Promise and fetch
-- and more… check *gulpfile.js* out!
+- and more… check `gulpfile.js` out!
 
 ### The available commands, explained
 
@@ -51,7 +55,7 @@ $ gulp build
 Let's assume that you have a post-receive hook on your server that deploys your
 files at every push. You can implement a pre-receive hook that will block the
 push if it encounters a build.txt file with the word 'dirty', which means that
-the developer has forgotten to launch a *gulp build* before committing and
+the developer has forgotten to launch a **gulp build** before committing and
 pushing. Here a sample pre-receive hook:
 
 ```sh
