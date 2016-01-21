@@ -5,7 +5,7 @@
  * what you will want to do in most websites (less files = less requests =
  * faster loading times). It will:
  * 	- convert your JSX (react) into proper JS
- * 	- convert your ES6 files to ES5, concatenate and minify them
+ * 	- convert your ES2015 files to ES5, concatenate and minify them
  * 	- convert your SCSS files to CSS, autoprefix, concatenate and minify them
  * 	- watch your JS and reload the browser on change
  * 	- watch your CSS and inject the new rules on change

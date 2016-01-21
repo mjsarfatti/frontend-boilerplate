@@ -11,9 +11,9 @@ optional, you can keep writing regular ES5 javascript.
 
 ```sh
 $ git clone https://github.com/mjsarfatti/frontend-boilerplate my-project
-$ // or (if you want to simply copy the files without the .git repo)
+# or (if you want to simply copy the files without the .git repo)
 $ svn export https://github.com/mjsarfatti/frontend-boilerplate/trunk my-project
-$ // then:
+# then:
 $ cd my-project
 $ npm install
 $ gulp
@@ -24,7 +24,8 @@ even though it's not required_
 
 ### What it does
 
-- convert your ES6 files to ES5, concatenate and minify them
+- convert your JSX (react) into proper JS
+- convert your ES2015 files to ES5, concatenate and minify them
 - convert your SCSS files to CSS, autoprefix, concatenate and minify them
 - watch your JS and reload the browser on change
 - watch your CSS and inject the new rules on change
