@@ -1,8 +1,9 @@
 # frontend-boilerplate
 
-A Gulp-ES6-Webpack-BrowserSync starter template for frontend development.
-Feel free to edit the folders in the settings of `gulpfile.js` to adapt it to
-your development environemnt.
+A Gulp-React-ES2015-Webpack-BrowserSync starter template for frontend
+development. Feel free to edit the folders in the settings of `gulpfile.js` to
+adapt it to your development environment. Note that React and ES2015 are
+optional, you can keep writing regular ES5 javascript.
 
 ### Quick start
 
@@ -10,6 +11,9 @@ your development environemnt.
 
 ```sh
 $ git clone https://github.com/mjsarfatti/frontend-boilerplate my-project
+$ // or (if you want to simply copy the files without the .git repo)
+$ svn export https://github.com/mjsarfatti/frontend-boilerplate/trunk my-project
+$ // then:
 $ cd my-project
 $ npm install
 $ gulp
@@ -48,6 +52,12 @@ $ gulp watch
 # run Gulp in production mode (does minify your JS, will write the current
 # date and time in the build.txt file, will not start any server or watch)
 $ gulp build
+```
+
+```sh
+# sometimes you just want to have a quick look at the project: this will simply
+# start the server and open a new browser tab at localhost:3000
+$ gulp serve
 ```
 
 #### Why the build.txt file?

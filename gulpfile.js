@@ -4,7 +4,8 @@
  * This setup will output a single app.js and a single app.css file, which is
  * what you will want to do in most websites (less files = less requests =
  * faster loading times). It will:
- *  - convert your ES6 files to ES5, concatenate and minify them
+ * 	- convert your JSX (react) into proper JS
+ * 	- convert your ES6 files to ES5, concatenate and minify them
  * 	- convert your SCSS files to CSS, autoprefix, concatenate and minify them
  * 	- watch your JS and reload the browser on change
  * 	- watch your CSS and inject the new rules on change
@@ -13,15 +14,16 @@
  * 	- make sure all browsers find the polyfills for Promise and fetch
  *
  * Moreover it can (simply uncomment the corresponding lines further down
- * the code below, they start with "EDIT HERE"):
+ * the code below, they start with #MASONRY, #GSAP, #JQUERY):
  * 	- make sure '$' and 'jQuery' variables are available to plugins and modules
  * 	- make sure GSAP plugins find their parents (TweenLite and TweenMax)
- * 	- make sure Masonry and imagesloaded work as they are supposed to
+ * 	- make sure Masonry, Isotope and imagesloaded work as they are supposed to
  *
  * COMMANDS
  * $ gulp          Start watching and fire up a browser tab at localhost:3000
  * $ gulp watch    Start watching but do not open a new tab
  * $ gulp build    Build and compress all files production ready mode
+ * $ gulp serve    Fire up a browser tab and serve the files at localhost:3000
  *
  */
 
@@ -60,7 +62,8 @@ var settings = {
 	// and finally tell autoprefixer which browsers we care about
 	prefixer: ['> 1%', 'last 2 versions', 'Firefox ESR', 'Opera 12.1', 'IE >= 9']
 };
-// You can stop editing here, the rest will just work ;)
+// You can stop editing here, the rest will just work, unless you need
+// Masonry, GSAP and jQuery, then keep looking down --v
 
 var fs           = require('fs');
 var gulp         = require('gulp');
@@ -91,6 +94,11 @@ gulp.task('build', function(callback) {
 	global.production = true;
 	fs.writeFileSync('build.txt', new Date());
 	gulpSequence(['sass', 'webpack'], callback);
+});
+
+gulp.task('serve', function(callback) {
+	global.open = true;
+	gulpSequence(['browserSync'], callback);
 });
 
 gulp.task('sass', function () {
@@ -124,23 +132,32 @@ gulp.task('webpack', function(callback) {
 		},
 		module: {
 			loaders: [
-				// EDIT HERE - get masonry to work (https://github.com/desandro/masonry/issues/679)
+				// #MASONRY - Uncomment here
+				// (https://github.com/desandro/masonry/issues/679)
 				/*{
-					test: /(masonry-layout|imagesloaded)/,
+					test: /(masonry-layout|isotope-layout|imagesloaded)/,
 					loader: 'imports?define=>false&this=>window'
 				},*/
 				{
-					test: /\.js$/,
+					test: /\.jsx?$/,
 					exclude: /(node_modules)/,
 					loader: 'babel-loader',
-					query: { presets: ['es2015'] }
+					query: { presets: ['es2015', 'react'] }
+				}
+			],
+			preLoaders: [
+				{
+					test: /\.jsx?$/, // include .js files
+					exclude: /node_modules/, // exclude any and all files in the node_modules folder
+					loader: 'eslint-loader'
 				}
 			]
 		},
 		resolve: {
-			extensions: ['', '.js'],
+			extensions: ['', '.js', '.jsx'],
 			alias: {
-				// EDIT HERE - needed to have GSAP plugins satisfy their "requires"
+				// #GSAP - Uncomment here
+				// (needed to have GSAP plugins satisfy their "requires")
 				/*'TweenLite': 'gsap/src/uncompressed/TweenLite',
 				'TweenMax': 'gsap/src/uncompressed/TweenMax'*/
 			}
@@ -149,7 +166,8 @@ gulp.task('webpack', function(callback) {
 			new webpack.ProvidePlugin({
 				'Promise': 'exports?global.Promise!es6-promise',
 				'fetch': 'exports?self.fetch!whatwg-fetch',
-				// EDIT HERE - make '$' and 'jQuery' available to plugins and modules
+				// #JQUERY - Uncomment here
+				// (make '$' and 'jQuery' available to plugins and modules)
 				/*$: 'jquery',
 				jQuery: 'jquery'*/
 			})
