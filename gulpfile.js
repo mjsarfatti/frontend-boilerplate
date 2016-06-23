@@ -41,29 +41,40 @@ var settings = {
 	// here is where app.css will end up
 	styleDest: './dist/assets/css/',
 
-	// this is the entry js file (import the whole npm catalogue here if you wish)
-	jsEntry: './src/code/index.js',
+	// this is the entry js file(s) (the array keys define the output filenames)
+	jsEntry: {
+		app: ['./src/code/index.js']
+	},
 
 	// this is a helper for the soucemaps: make sure it matches the above
 	jsMapRoot: '../../src/code/',
 
-	// this is where app.js will end up
+	// this is where the files defined in jsEntry will end up
 	jsDest: './dist/assets/js/',
 
 	// here you can tell browserSync which static (PHP, HTML, etc…) files to watch
 	watch: ['./dist/**/*.html'/*, './framework/controllers/*.php', …*/ ],
 
 	// now you have two choices: either you indicate a folder which will be
-	// considered the document root by the server [docroot], or you can tell gulp
-	// the domain of the virtual host you have setup eg. via apache [proxy]
+	// considered the document root by the server [docroot], or you can
+	// specify which virtual host domain to proxy in gulpconfig.js (comment this
+	// line and uncomment below to include gulpconfig.js)
 	docroot: './dist',
-	/*proxy: 'the-project.dev',*/
 
 	// and finally tell autoprefixer which browsers we care about
 	prefixer: ['> 1%', 'last 2 versions', 'Firefox ESR', 'Opera 12.1', 'IE >= 9']
 };
+
+// Uncomment below to use a proxy
+/*var localConfig  = require('./gulpconfig');*/
+
+// merge settings with local config
+/*for (var attrName in localConfig) {
+	settings[attrName] = localConfig[attrName];
+}*/
+
 // You can stop editing here, the rest will just work, unless you need
-// Masonry, GSAP and jQuery, then keep looking down --v
+// Masonry, GSAP, jQuery or Foundation, then keep looking down --v
 
 var fs           = require('fs');
 var gulp         = require('gulp');
@@ -105,7 +116,11 @@ gulp.task('sass', function () {
 
 	var config = {
 		autoprefixer: { browsers: settings.prefixer },
-		sass: { outputStyle: 'compact' }
+		sass: {
+			// #FOUNDATION - Uncomment here
+			/*includePaths: ['./node_modules/foundation-sites/scss/']*/
+			outputStyle: 'compact'
+		}
 	};
 
 	return gulp.src(settings.styleSrc)
@@ -128,7 +143,7 @@ gulp.task('webpack', function(callback) {
 		entry: settings.jsEntry,
 		output: {
 			path: settings.jsDest,
-			filename: 'app.js'
+			filename: '[name].js'
 		},
 		module: {
 			loaders: [
@@ -137,6 +152,12 @@ gulp.task('webpack', function(callback) {
 				/*{
 					test: /(masonry-layout|isotope-layout|imagesloaded)/,
 					loader: 'imports?define=>false&this=>window'
+				},*/
+				// #JQUERY - Uncomment this
+				// (make '$' and 'jQuery' globals)
+				/*{
+					test: /\/jquery\.js$/,
+					loader: 'expose?$!expose?jQuery'
 				},*/
 				{
 					test: /\.jsx?$/,
@@ -160,16 +181,15 @@ gulp.task('webpack', function(callback) {
 				// (needed to have GSAP plugins satisfy their "requires")
 				/*'TweenLite': 'gsap/src/uncompressed/TweenLite',
 				'TweenMax': 'gsap/src/uncompressed/TweenMax'*/
+				// #FOUNDATION - Uncomment here
+				// (needed to have Foundation plugins satisfy their "requires")
+				/*foundation: 'foundation-sites/js/foundation.core'*/
 			}
 		},
 		plugins: [
 			new webpack.ProvidePlugin({
 				'Promise': 'exports?global.Promise!es6-promise',
-				'fetch': 'exports?self.fetch!whatwg-fetch',
-				// #JQUERY - Uncomment here
-				// (make '$' and 'jQuery' available to plugins and modules)
-				/*$: 'jquery',
-				jQuery: 'jquery'*/
+				'fetch': 'exports?self.fetch!whatwg-fetch'
 			})
 		]
 	};
@@ -249,7 +269,7 @@ var handleErrors = function(errorObject, callback) {
  * Log a webpack error to console
  */
 var logger = function(err, stats) {
-	if (err) throw new gutil.PluginError("webpack", err);
+	if (err) throw new gutil.PluginError('webpack', err);
 
 	var statColor = stats.compilation.warnings.length < 1 ? 'green' : 'yellow';
 
@@ -270,7 +290,7 @@ var logger = function(err, stats) {
  */
 var prettifyTime = function(milliseconds) {
 	if (milliseconds > 999) {
-		return (milliseconds / 1000).toFixed(2) + " s";
+		return (milliseconds / 1000).toFixed(2) + ' s';
 	} else {
 		return milliseconds + ' ms';
 	}
