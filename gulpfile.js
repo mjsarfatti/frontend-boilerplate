@@ -114,12 +114,13 @@ gulp.task('serve', function(callback) {
 
 gulp.task('sass', function () {
 
+	var outputStyle = global.production ? 'compressed' : 'compact';
 	var config = {
 		autoprefixer: { browsers: settings.prefixer },
 		sass: {
 			// #FOUNDATION - Uncomment here
 			/*includePaths: ['./node_modules/foundation-sites/scss/']*/
-			outputStyle: 'compact'
+			outputStyle: outputStyle
 		}
 	};
 
