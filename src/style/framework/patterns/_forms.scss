@@ -1,0 +1,116 @@
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="text"],
+input[type="tel"],
+input[type="url"],
+input[type="password"],
+textarea,
+select {
+	height: $form-element-height;
+	width: 100%;
+	// The 6px vertically centers text on FF, ignored by Webkit
+	padding: 6px 10px;
+
+	background-color: #fff;
+	border: 1px solid $lightgrey;
+	border-radius: $border-radius;
+	box-shadow: none;
+	box-sizing: border-box;
+
+	-moz-appearance: none;
+	-webkit-appearance: none;
+
+	transition:
+		color $transition-timing linear,
+		background $transition-timing linear,
+		border-color $transition-timing linear;
+
+	&:focus {
+		border-color: $midgrey;
+		outline: 0;
+	}
+
+	&[disabled], &[readonly] {
+		background-color: lighten($lightgrey, 12%);
+	}
+}
+
+textarea {
+	height: auto;
+	min-height: $form-element-height * 2;
+}
+
+select {
+	padding-right: 25px;
+	background-image: svg-url('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="32" height="24" viewBox="0 0 32 24"><polygon points="0,0 32,0 16,24" style="fill: #000000"></polygon></svg>');
+	background-position: right 6px center;
+	background-repeat: no-repeat;
+	background-size: 10px;
+	cursor: pointer;
+}
+
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="search"]:focus,
+input[type="text"]:focus,
+input[type="tel"]:focus,
+input[type="url"]:focus,
+input[type="password"]:focus,
+textarea:focus,
+select:focus {
+}
+
+label {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.8;
+}
+
+legend {
+	display: block;
+	margin-bottom: 0.5rem;
+	width: 100%;
+}
+
+.form-group legend {
+	border-bottom: none;
+}
+
+fieldset {
+	padding: 0;
+	border-width: 0;
+}
+
+/*input[type="checkbox"],
+input[type="radio"] {
+	&:focus {
+		outline: none;
+	}
+}*/
+
+input[type="checkbox"] + label,
+input[type="radio"] + label {
+	display: inline-block;
+	padding-left: .5rem;
+	margin-right: 1rem;
+
+	&:last-child {
+		margin-right: 0;
+	}
+}
+
+.form-group {
+	margin-bottom: $global-margin;
+
+	&:after {
+		content: '';
+		display: table;
+		clear: both;
+	}
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+}
+

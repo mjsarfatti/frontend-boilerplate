@@ -1,0 +1,36 @@
+// Text classes
+.text-right  { text-align: right;  }
+.text-center { text-align: center; }
+.text-left   { text-align: left;   }
+
+// Layout classes
+.float-right { float: right; }
+.float-left  { float: left;  }
+.clear       { clear: both;  }
+.clearfix:after {
+	content: '';
+	display: table;
+	clear: both;
+}
+
+// Visibility classes
+.sr-only {
+	position: absolute;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	margin: -1px;
+	padding: 0;
+	width: 1px;
+	height: 1px;
+	border: 0;
+}
+
+.sr-only:active,
+.sr-only:focus {
+	position: static;
+	overflow: visible;
+	clip: auto;
+	margin: 0;
+	width: auto;
+	height: auto;
+}

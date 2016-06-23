@@ -1,0 +1,53 @@
+html, body {
+	font-size: 100%;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: $font-family;
+	line-height: $line-height;
+}
+
+*,
+*:after,
+*:before {
+	box-sizing: inherit;
+}
+
+// if it's a dark website with light text uncomment this
+/*body {
+	@include font-smoothing(on);
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.25),
+	only screen and ( min-device-pixel-ratio: 1.25),
+	only screen and ( min-resolution: 200dpi),
+	only screen and ( min-resolution: 1.25dppx)
+{
+	body {
+		@include font-smoothing(off);
+	}
+}*/
+
+img {
+	// Grid defaults to get images and embeds to work properly
+	max-width: 100%;
+	height: auto;
+	-ms-interpolation-mode: bicubic;
+
+	// Get rid of gap under images by making them display: inline-block; by default
+	display: inline-block;
+	vertical-align: middle;
+}
+
+// Styles Google Maps and MapQuest embeds properly
+// scss-lint:disable IdSelector
+#map_canvas,
+.map_canvas,
+.mqa-display {
+	img,
+	embed,
+	object {
+		max-width: none !important;
+	}
+}

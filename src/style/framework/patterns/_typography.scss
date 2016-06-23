@@ -1,0 +1,78 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin: 0 0 0.3em 0;
+	line-height: 1.15em;
+	text-rendering: optimizeLegibility;
+}
+
+h1 {
+	text-indent: -3px;
+	//font-size: 5rem;
+}
+
+h2 {
+	text-indent: -2px;
+	//font-size: 4.2rem;
+}
+
+h3 {
+	text-indent: -1px;
+	//font-size: 3.8rem;
+}
+
+h4 {
+	text-indent: -1px;
+	//font-size: 3.1rem;
+}
+
+h5 {
+	text-indent: -1px;
+	//font-size: 2.6rem;
+}
+
+h6 {
+	//font-size: 2rem;
+}
+
+p,
+ul,
+ol,
+dl,
+blockquote,
+form {
+	margin: 0 0 $global-margin 0;
+}
+
+blockquote {
+	padding: 0 1em;
+
+	> :last-child {
+		margin-bottom: 0;
+	}
+}
+
+ol,
+ul {
+	padding-left: 1.25rem;
+}
+
+ol ol,
+ul ul,
+ul ol,
+ol ul {
+	margin-bottom: 0;
+}
+
+a {
+	text-decoration: none;
+	color: $primary;
+	transition: all $transition-timing linear;
+
+	&:hover, &:focus {
+		color: darken($primary, 20%);
+	}
+}

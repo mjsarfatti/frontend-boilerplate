@@ -1,0 +1,117 @@
+// Always use .button even on <button> elements
+.button {
+	// Disable user-select on UI which Responds to Touch
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+
+	// Webkit / Chrome Specific CSS to remove tap highlight color
+	-webkit-tap-highlight-color: transparent;
+
+	// Internet Explorer on Windows Phone has a similar behavior,
+	// but is suppressed via a meta tag
+	/*<meta name="msapplication-tap-highlight" content="no">*/
+
+	// Firefox Specific CSS to remove button differences and focus ring
+	background-image: none;
+	&::-moz-focus-inner {
+		border: 0;
+	}
+
+	// Suppress the outline color when an element is focused
+	&:focus {
+		outline: none;
+	}
+
+	// Safari on iOS does not apply the active state by default, to get it
+	// working you need to add a touchstart event listener to the document body
+	// or to each element.
+	/*
+	window.onload = function() {
+		if(/iP(hone|ad)/.test(window.navigator.userAgent)) {
+			var elements = document.querySelectorAll('button');
+			var emptyFunction = function() {};
+			for(var i = 0; i < elements.length; i++) {
+				elements[i].addEventListener('touchstart', emptyFunction, false);
+			}
+		}
+	};
+	*/
+
+	// Reset <button> styles created by most browsers
+	-webkit-appearance: none;
+	-moz-appearance: none;
+
+	display: inline-block;
+
+	height: $form-element-height;
+	margin-bottom: 0;
+	padding: 0 30px;
+	border: $midgrey 1px solid;
+	border-radius: $border-radius;
+
+	background: white;
+
+	color: $darkgrey;
+	text-align: center;
+	text-shadow: none;
+	white-space: nowrap;
+	font-size: 0.875rem;
+	letter-spacing: 0.5px;
+	line-height: $form-element-height;
+	text-decoration: none;
+
+	transition:
+		color $transition-timing linear,
+		background $transition-timing linear,
+		border-color $transition-timing linear;
+
+	cursor: pointer;
+}
+
+// When hovered or clicked or focused with keyboard
+.button:hover,
+.button:focus,
+.button:active:focus {
+	border-color: $darkgrey;
+	color: $darkgrey;
+	text-decoration: none;
+}
+
+// When clicked
+.button:active {
+	outline: 0;
+	background-image: none;
+	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+// When disabled
+.button[disabled] {
+	box-shadow: none;
+	opacity: 0.65;
+	cursor: not-allowed;
+	pointer-events: none;
+}
+
+// Variant: primary
+.button--primary {
+	background:   $primary;
+	border-color: $primary;
+	color: white;
+
+	@include font-smoothing(on);
+
+	&:hover,
+	&:focus {
+		background:   darken($primary, 10%);
+		border-color: darken($primary, 10%);
+		color: white;
+	}
+}
+
+// Expand to full parent width
+.button--expand {
+	display: block;
+	width: 100%;
+}
