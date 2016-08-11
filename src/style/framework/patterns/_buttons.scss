@@ -51,7 +51,7 @@
 	border: $midgrey 1px solid;
 	border-radius: $border-radius;
 
-	background: white;
+	background-color: white;
 
 	color: $darkgrey;
 	text-align: center;
@@ -64,7 +64,7 @@
 
 	transition:
 		color $transition-timing linear,
-		background $transition-timing linear,
+		background-color $transition-timing linear,
 		border-color $transition-timing linear;
 
 	cursor: pointer;
@@ -96,7 +96,7 @@
 
 // Variant: primary
 .button--primary {
-	background:   $primary;
+	background-color: $primary;
 	border-color: $primary;
 	color: white;
 
@@ -104,7 +104,7 @@
 
 	&:hover,
 	&:focus {
-		background:   darken($primary, 10%);
+		background-color: darken($primary, 10%);
 		border-color: darken($primary, 10%);
 		color: white;
 	}
