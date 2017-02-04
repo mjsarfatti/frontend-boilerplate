@@ -69,10 +69,10 @@ ol ul {
 
 a {
 	text-decoration: none;
-	color: $primary;
+	color: $primary-color;
 	transition: all $transition-timing linear;
 
 	&:hover, &:focus {
-		color: darken($primary, 20%);
+		color: darken($primary-color, 20%);
 	}
 }

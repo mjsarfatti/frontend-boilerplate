@@ -13,7 +13,7 @@ select {
 	padding: 6px 10px;
 
 	background-color: #fff;
-	border: 1px solid $lightgrey;
+	border: 1px solid $lightgrey-color;
 	border-radius: $border-radius;
 	box-shadow: none;
 	box-sizing: border-box;
@@ -27,12 +27,12 @@ select {
 		border-color $transition-timing linear;
 
 	&:focus {
-		border-color: $midgrey;
+		border-color: $midgrey-color;
 		outline: 0;
 	}
 
 	&[disabled], &[readonly] {
-		background-color: lighten($lightgrey, 12%);
+		background-color: lighten($lightgrey-color, 12%);
 	}
 }
 
