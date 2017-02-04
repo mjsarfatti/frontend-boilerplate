@@ -106,19 +106,19 @@ gulp.task('default', function(callback) {
 	global.watch = true;
 	global.open = true;
 	fs.writeFileSync('build.txt', 'dirty');
-	gulpSequence(['sass', jsTasker], ['watcher', 'browserSync'], callback);
+	gulpSequence(['sass', settings.jsTasker], ['watcher', 'browserSync'], callback);
 });
 
 gulp.task('watch', function(callback) {
 	global.watch = true;
 	fs.writeFileSync('build.txt', 'dirty');
-	gulpSequence(['sass', jsTasker], ['watcher', 'browserSync'], callback);
+	gulpSequence(['sass', settings.jsTasker], ['watcher', 'browserSync'], callback);
 });
 
 gulp.task('build', function(callback) {
 	global.production = true;
 	fs.writeFileSync('build.txt', new Date());
-	gulpSequence(['sass', jsTasker], callback);
+	gulpSequence(['sass', settings.jsTasker], callback);
 });
 
 gulp.task('serve', function(callback) {
