@@ -15,7 +15,7 @@ $ git clone https://github.com/mjsarfatti/frontend-boilerplate my-project
 $ svn export https://github.com/mjsarfatti/frontend-boilerplate/trunk my-project
 # then:
 $ cd my-project
-$ npm install
+$ npm update --save-dev
 $ gulp
 ```
 
