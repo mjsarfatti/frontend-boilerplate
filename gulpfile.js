@@ -35,18 +35,30 @@ var settings = {
 	// this is the folder where your scss files reside (you can use subfolders)
 	styleSrc: './src/style/**/*.{sass,scss}',
 
-	// this is a helper for the soucemaps: make sure it matches the above
+	// this is a helper for the soucemaps: make sure it matches the above,
+	// it's relative to the position of the final css
 	styleMapRoot: '../../src/style/',
 
 	// here is where app.css will end up
 	styleDest: './dist/assets/css/',
 
-	// this is the entry js file(s) (the array keys define the output filenames)
+	// set this to 'webpack' if you want CommonJS-like modules support, leave it to 'js' if all you
+	// need is minification and concatenation
+	jsTasker: 'js',
+
+	// this is the entry js file(s) (the array keys define the output filenames),
+	// it's used only by the 'webpack' task
 	jsEntry: {
 		app: ['./src/code/index.js']
 	},
 
-	// this is a helper for the soucemaps: make sure it matches the above
+	// this is the list of files and/or folders where your js source files reside: they will be
+	// minified and concatenated in this order (so put files such as jQuery first).
+	// It's used by the 'js' task
+	jsSrc: ['./src/code/**/*.js'],
+
+	// this is a helper for the soucemaps: make sure it matches the above,
+	// it's relative to the position of the final css
 	jsMapRoot: '../../src/code/',
 
 	// this is where the files defined in jsEntry will end up
@@ -66,10 +78,10 @@ var settings = {
 };
 
 // Uncomment below to use a proxy
-/*var localConfig  = require('./gulpconfig');*/
+/*var localConfig  = require('./gulpconfig');
 
 // merge settings with local config
-/*for (var attrName in localConfig) {
+for (var attrName in localConfig) {
 	settings[attrName] = localConfig[attrName];
 }*/
 
@@ -87,24 +99,26 @@ var watch        = require('gulp-watch');
 var notify       = require('gulp-notify');
 var webpack      = require('webpack');
 var browserSync  = require('browser-sync');
+var concat       = require('gulp-concat');
+var uglify       = require('gulp-uglify');
 
 gulp.task('default', function(callback) {
 	global.watch = true;
 	global.open = true;
 	fs.writeFileSync('build.txt', 'dirty');
-	gulpSequence(['sass', 'webpack'], ['watcher', 'browserSync'], callback);
+	gulpSequence(['sass', jsTasker], ['watcher', 'browserSync'], callback);
 });
 
 gulp.task('watch', function(callback) {
 	global.watch = true;
 	fs.writeFileSync('build.txt', 'dirty');
-	gulpSequence(['sass', 'webpack'], ['watcher', 'browserSync'], callback);
+	gulpSequence(['sass', jsTasker], ['watcher', 'browserSync'], callback);
 });
 
 gulp.task('build', function(callback) {
 	global.production = true;
 	fs.writeFileSync('build.txt', new Date());
-	gulpSequence(['sass', 'webpack'], callback);
+	gulpSequence(['sass', jsTasker], callback);
 });
 
 gulp.task('serve', function(callback) {
@@ -133,9 +147,24 @@ gulp.task('sass', function () {
 			includeContent: false,
 			sourceRoot: settings.styleMapRoot
 		}))
+		.pipe(gulp.dest(settings.styleDest))
 		.pipe(browserSync.stream({match: '**/*.css'}))
 		.pipe(gulp.dest(settings.styleDest));
 
+});
+
+gulp.task('js', function() {
+	gulp.src(settings.jsSrc)
+		.pipe(sourcemaps.init())
+		.pipe(concat('app.js'))
+		.pipe(uglify())
+		.on('error', handleErrors)
+		.pipe(sourcemaps.write('./', {
+			includeContent: false,
+			sourceRoot: settings.jsMapRoot
+		}))
+		.pipe(gulp.dest(settings.jsDest));
+	browserSync.reload();
 });
 
 gulp.task('webpack', function(callback) {
@@ -189,7 +218,7 @@ gulp.task('webpack', function(callback) {
 		},
 		plugins: [
 			new webpack.ProvidePlugin({
-				'Promise': 'exports?global.Promise!es6-promise',
+				'Promise': 'promise-polyfill',
 				'fetch': 'exports?self.fetch!whatwg-fetch'
 			})
 		]

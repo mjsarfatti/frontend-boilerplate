@@ -48,12 +48,12 @@
 	height: $form-element-height;
 	margin-bottom: 0;
 	padding: 0 30px;
-	border: $midgrey 1px solid;
+	border: $midgrey-color 1px solid;
 	border-radius: $border-radius;
 
 	background-color: white;
 
-	color: $darkgrey;
+	color: $darkgrey-color;
 	text-align: center;
 	text-shadow: none;
 	white-space: nowrap;
@@ -74,8 +74,8 @@
 .button:hover,
 .button:focus,
 .button:active:focus {
-	border-color: $darkgrey;
-	color: $darkgrey;
+	border-color: $darkgrey-color;
+	color: $darkgrey-color;
 	text-decoration: none;
 }
 
@@ -96,16 +96,32 @@
 
 // Variant: primary
 .button--primary {
-	background-color: $primary;
-	border-color: $primary;
+	background-color: $primary-color;
+	border-color: $primary-color;
 	color: white;
 
 	@include font-smoothing(on);
 
 	&:hover,
 	&:focus {
-		background-color: darken($primary, 10%);
-		border-color: darken($primary, 10%);
+		background-color: darken($primary-color, 10%);
+		border-color: darken($primary-color, 10%);
+		color: white;
+	}
+}
+
+// Variant: accent
+.button--accent {
+	background-color: $accent-color;
+	border-color: $accent-color;
+	color: white;
+
+	@include font-smoothing(on);
+
+	&:hover,
+	&:focus {
+		background-color: darken($accent-color, 10%);
+		border-color: darken($accent-color, 10%);
 		color: white;
 	}
 }
@@ -114,4 +130,5 @@
 .button--expand {
 	display: block;
 	width: 100%;
+	padding: 0;
 }

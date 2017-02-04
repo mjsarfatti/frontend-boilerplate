@@ -4,10 +4,11 @@
 @import 'utilities/constants';
 @import 'utilities/variables';
 
-@import 'patterns/globals';
-@import 'patterns/typography';
-@import 'patterns/buttons';
-@import 'patterns/forms';
-@import 'patterns/helpers';
+@import 'components/typography';
+@import 'components/buttons';
+@import 'components/forms';
+@import 'components/helpers';
 
 @import 'layouts/grid';
+
+@import 'globals';

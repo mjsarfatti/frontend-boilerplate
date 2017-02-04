@@ -8,12 +8,11 @@
 		"node": true
 	},
 	"parser": "babel-eslint",
+	"extends": "airbnb",
 	"rules": {
-		"quotes": [1, "single"],
-		"strict": [1, "never"],
-		"react/jsx-uses-react": 2,
-		"react/jsx-uses-vars": 2,
-		"react/react-in-jsx-scope": 2
+		"indent": [2, "tab"],
+		"padded-blocks": 0,
+		"no-plusplus": 0
 	},
 	"plugins": [ "react" ]
 }
