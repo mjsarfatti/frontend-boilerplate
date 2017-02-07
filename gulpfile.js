@@ -176,7 +176,7 @@ gulp.task('webpack', function(callback) {
 			filename: '[name].js'
 		},
 		module: {
-			loaders: [
+			rules: [
 				// #MASONRY - Uncomment here
 				// (https://github.com/desandro/masonry/issues/679)
 				/*{
@@ -194,10 +194,9 @@ gulp.task('webpack', function(callback) {
 					exclude: /(node_modules)/,
 					loader: 'babel-loader',
 					query: { presets: ['es2015', 'react'] }
-				}
-			],
-			preLoaders: [
+				},
 				{
+					enforce: 'pre',
 					test: /\.jsx?$/, // include .js files
 					exclude: /node_modules/, // exclude any and all files in the node_modules folder
 					loader: 'eslint-loader'
@@ -205,7 +204,7 @@ gulp.task('webpack', function(callback) {
 			]
 		},
 		resolve: {
-			extensions: ['', '.js', '.jsx'],
+			extensions: ['.js', '.jsx'],
 			alias: {
 				// #GSAP - Uncomment here
 				// (needed to have GSAP plugins satisfy their "requires")
@@ -233,13 +232,12 @@ gulp.task('webpack', function(callback) {
 					'NODE_ENV': JSON.stringify('production')
 				}
 			}),
-			new webpack.optimize.DedupePlugin(),
 			new webpack.optimize.UglifyJsPlugin({
 				compress: {
 					warnings: false,
 				}
 			}),
-			new webpack.NoErrorsPlugin()
+			new webpack.NoEmitOnErrorsPlugin()
 		);
 
 	} else {
