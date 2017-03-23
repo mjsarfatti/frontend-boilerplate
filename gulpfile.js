@@ -218,7 +218,7 @@ gulp.task('webpack', function(callback) {
 		plugins: [
 			new webpack.ProvidePlugin({
 				'Promise': 'promise-polyfill',
-				'fetch': 'exports?self.fetch!whatwg-fetch'
+				'fetch': 'exports-loader?self.fetch!whatwg-fetch'
 			})
 		]
 	};
