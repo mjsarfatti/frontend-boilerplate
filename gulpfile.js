@@ -62,7 +62,7 @@ var settings = {
 	jsMapRoot: '../../src/code/',
 
 	// this is where the files defined in jsEntry will end up
-	jsDest: './dist/assets/js/',
+	jsDest: __dirname + '/dist/assets/js/',
 
 	// here you can tell browserSync which static (PHP, HTML, etc…) files to watch
 	watch: ['./dist/**/*.html'/*, './framework/controllers/*.php', …*/ ],
@@ -133,7 +133,7 @@ gulp.task('sass', function () {
 		autoprefixer: { browsers: settings.prefixer },
 		sass: {
 			// #FOUNDATION - Uncomment here
-			/*includePaths: ['./node_modules/foundation-sites/scss/']*/
+			/*includePaths: ['./node_modules/foundation-sites/scss/', './node_modules/motion-ui/src/'],*/
 			outputStyle: outputStyle
 		}
 	};
@@ -187,11 +187,11 @@ gulp.task('webpack', function(callback) {
 				// (make '$' and 'jQuery' globals)
 				/*{
 					test: /\/jquery\.js$/,
-					loader: 'expose?$!expose?jQuery'
+					loader: 'expose-loader?$!expose-loader?jQuery'
 				},*/
 				{
 					test: /\.jsx?$/,
-					exclude: /(node_modules)/,
+					exclude: /node_modules\/(?!foundation)/,
 					loader: 'babel-loader',
 					query: { presets: ['es2016', 'es2015', 'react'] }
 				},
@@ -210,9 +210,6 @@ gulp.task('webpack', function(callback) {
 				// (needed to have GSAP plugins satisfy their "requires")
 				/*'TweenLite': 'gsap/src/uncompressed/TweenLite',
 				'TweenMax': 'gsap/src/uncompressed/TweenMax'*/
-				// #FOUNDATION - Uncomment here
-				// (needed to have Foundation plugins satisfy their "requires")
-				/*foundation: 'foundation-sites/js/foundation.core'*/
 			}
 		},
 		plugins: [
