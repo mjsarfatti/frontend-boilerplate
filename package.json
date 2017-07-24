@@ -4,7 +4,7 @@
   "description": "The description of the project",
   "author": "You",
   "devDependencies": {
-    "babel": "*",
+    "babel-cli": "*",
     "babel-core": "*",
     "babel-eslint": "*",
     "babel-loader": "*",
