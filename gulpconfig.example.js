@@ -1,11 +1,12 @@
 /*
  * EDIT THIS
  *
- * Rename this file `gulpconfig.js` and edit it with the
- * hostname you use locally to reach the development website.
+ * Make a COPY of this file named `gulpconfig.js` and edit it
+ * accordingly to your needs to overwrite default settings.
  *
- **********************************************************/
+ *************************************************************/
 
 module.exports = {
-	proxy: 'domain.dev'
+	// Use a virtualhost to serve the files
+	// proxy: 'my-domain.localhost',
 };

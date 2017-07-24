@@ -77,13 +77,11 @@ var settings = {
 	prefixer: ['> 1%', 'last 2 versions', 'Firefox ESR', 'Opera 12.1', 'IE >= 9']
 };
 
-// Uncomment below to use a proxy
-/*var localConfig  = require('./gulpconfig');
-
-// merge settings with local config
+// Merge settings with local config
+var localConfig  = require('./gulpconfig');
 for (var attrName in localConfig) {
 	settings[attrName] = localConfig[attrName];
-}*/
+}
 
 // You can stop editing here, the rest will just work, unless you need
 // Masonry, GSAP, jQuery or Foundation, then keep looking down --v
